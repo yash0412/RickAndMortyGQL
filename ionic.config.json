@@ -1,0 +1,7 @@
+{
+  "name": "rickAndMortyGQL",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
