@@ -14,7 +14,25 @@ const { Storage } = Plugins;
   styleUrls: ["app.component.scss"]
 })
 export class AppComponent implements OnInit {
+  public selectedIndex = 0;
   isDarkMode = false;
+  public appPages = [
+    {
+      title: "Characters",
+      url: "characters",
+      icon: "mail"
+    },
+    {
+      title: "Locations",
+      url: "locations",
+      icon: "paper-plane"
+    },
+    {
+      title: "Episodes",
+      url: "episodes",
+      icon: "heart"
+    }
+  ];
 
   constructor(
     private platform: Platform,
