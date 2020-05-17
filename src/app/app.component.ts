@@ -1,56 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Platform } from "@ionic/angular";
+import { SplashScreen } from "@ionic-native/splash-screen/ngx";
+import { StatusBar } from "@ionic-native/status-bar/ngx";
+
+import { Plugins } from "@capacitor/core";
+
+const { Storage } = Plugins;
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  selector: "app-root",
+  templateUrl: "app.component.html",
+  styleUrls: ["app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  public selectedIndex = 0;
-  public appPages = [
-    {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
-    {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
-    },
-    {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
-    },
-    {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    }
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  isDarkMode = false;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
   ) {
-    this.initializeApp();
+    this.getDarkMode().then(data => {
+      this.toggleDarkMode(data);
+      this.isDarkMode = data;
+      this.initializeApp();
+    });
+  }
+
+  async setDarkMode(isDarkMode: boolean) {
+    await Storage.set({
+      key: "darkMode",
+      value: JSON.stringify({ darkMode: isDarkMode })
+    });
+  }
+
+  // JSON "get" example
+  async getDarkMode() {
+    return Storage.get({ key: "darkMode" })
+      .then(darkModeVal => {
+        if (darkModeVal.value)
+          return JSON.parse(darkModeVal.value).darkMode || false;
+        else return false;
+      })
+      .catch(err => {
+        return false;
+      });
   }
 
   initializeApp() {
@@ -60,10 +55,15 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+  ngOnInit() {}
+
+  toggleDarkMode(darkMode: boolean) {
+    document.body.classList.toggle("dark", darkMode);
+  }
+
+  changeMode(event) {
+    this.toggleDarkMode(event.detail.checked);
+    this.isDarkMode = event.detail.checked;
+    this.setDarkMode(event.detail.checked);
   }
 }
