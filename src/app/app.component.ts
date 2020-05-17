@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-
-import { Platform } from "@ionic/angular";
+import { Plugins } from "@capacitor/core";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
-
-import { Plugins } from "@capacitor/core";
+import { Platform } from "@ionic/angular";
 
 const { Storage } = Plugins;
 
