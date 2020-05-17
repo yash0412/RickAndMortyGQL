@@ -20,17 +20,17 @@ export class AppComponent implements OnInit {
     {
       title: "Characters",
       url: "characters",
-      icon: "mail"
+      icon: "people"
     },
     {
       title: "Locations",
       url: "locations",
-      icon: "paper-plane"
+      icon: "location"
     },
     {
       title: "Episodes",
       url: "episodes",
-      icon: "heart"
+      icon: "rocket"
     }
   ];
 
