@@ -14,7 +14,7 @@ import { AppComponent } from "./app.component";
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot({ mode: "ios" }),
+    IonicModule.forRoot(),
     AppRoutingModule,
     CommonModule,
     FormsModule
