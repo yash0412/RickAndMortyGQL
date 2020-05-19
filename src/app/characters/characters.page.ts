@@ -29,7 +29,7 @@ export class CharactersPage implements OnInit {
   }
 
   showSkeleton() {
-    this.skeletonCount = new Array(3);
+    this.skeletonCount = new Array(4);
   }
 
   hideSkeleton() {
@@ -38,15 +38,22 @@ export class CharactersPage implements OnInit {
 
   getCharactersData(pageIndex: number) {
     this.showSkeleton();
-    this.characterSvc.getCharactersList(pageIndex).subscribe(response => {
-      const { info, results } = response.data.characters;
-      this.currentIndex = pageIndex;
-      this.totalPages = info.pages;
-      this.nextIndex = info.next;
-      this.previousIndex = info.prev;
-      this.hideSkeleton();
-      this.characters = results;
-    });
+    this.currentIndex = pageIndex;
+    if (this.currentIndex === this.totalPages) this.nextIndex = null;
+    if (this.currentIndex === 1) this.previousIndex = null;
+    this.characterSvc.getCharactersList(pageIndex).subscribe(
+      response => {
+        const { info, results } = response.data.characters;
+        this.totalPages = info.pages;
+        this.nextIndex = info.next;
+        this.previousIndex = info.prev;
+        this.hideSkeleton();
+        this.characters = results;
+      },
+      err => {
+        this.hideSkeleton();
+      }
+    );
   }
 
   nextPage() {
