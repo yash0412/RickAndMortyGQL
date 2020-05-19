@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -21,8 +21,18 @@
             </ion-avatar>
           </ion-col>
           <ion-col size="9">
-            <ion-card-title>{{character.name}}</ion-card-title>
-            <ion-card-subtitle>{{character.species}}</ion-card-subtitle>
+            <ion-card-title>
+              {{character.name}}
+            </ion-card-title>
+            <ion-card-subtitle>
+              <ion-chip [color]="genders[character.gender].color">
+                <ion-icon
+                  [name]="genders[character.gender].icon"
+                  [color]="genders[character.gender].color"
+                ></ion-icon>
+                <ion-label>{{character.species}}</ion-label>
+              </ion-chip>
+            </ion-card-subtitle>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -34,8 +44,50 @@
         {{character.status}}
       </ion-badge>
       <br />
-      <ion-text>
-        Current Location: {{character.location.name}}
+      <ion-text color="secondary">
+        <h2>{{character.episode[0].name}}</h2>
+      </ion-text>
+      <ion-text color="primary">
+        <h3>{{character.location.name}}</h3>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+  <ion-card color="light" *ngFor="let count of skeletonCount">
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3">
+            <ion-avatar>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="9">
+            <ion-card-title>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-card-title>
+            <ion-card-subtitle>
+              <ion-skeleton-text
+                animated
+                style="width: 30%;"
+              ></ion-skeleton-text>
+            </ion-card-subtitle>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+      <br />
+      <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+      <ion-text color="secondary">
+        <h2>
+          <ion-skeleton-text></ion-skeleton-text>
+        </h2>
+      </ion-text>
+      <ion-text color="primary">
+        <h3>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
       </ion-text>
     </ion-card-content>
   </ion-card>

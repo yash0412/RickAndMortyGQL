@@ -1,4 +1,4 @@
-export const URL = "https://rickandmortyapi.com/graphql/";
+export const URL = "https://rickandmortyapi.com/graphql";
 
 export interface CharacterResponse {
   data: {

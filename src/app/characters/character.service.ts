@@ -26,9 +26,11 @@ export class CharacterService {
                     }
                     image
                     gender
-                    type
                     status
                     species
+                    episode{
+                      name
+                    }
                   }
                 }
               }`

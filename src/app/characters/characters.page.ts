@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { CharacterService } from "./character.service";
-import { LoadingController } from "@ionic/angular";
 
 @Component({
   selector: "app-characters",
@@ -13,31 +12,38 @@ export class CharactersPage implements OnInit {
   nextIndex: number = null;
   previousIndex: number = null;
 
-  loading: HTMLIonLoadingElement = null;
+  skeletonCount: any[];
 
-  characters: any[];
-  constructor(
-    private characterSvc: CharacterService,
-    public loadingController: LoadingController
-  ) {}
+  genders = {
+    Male: { icon: "male-outline", color: "secondary" },
+    Female: { icon: "female-outline", color: "danger" },
+    unknown: { icon: "help-circle-outline", color: "success" },
+    Genderless: { icon: "male-female-outline", color: "warning" }
+  };
 
-  async presentLoading() {}
+  characters: any[] = [];
+  constructor(private characterSvc: CharacterService) {}
 
-  async ngOnInit() {
-    this.loading = await this.loadingController.create({
-      message: "Please wait..."
-    });
+  ngOnInit() {
     this.getCharactersData(this.currentIndex);
   }
 
+  showSkeleton() {
+    this.skeletonCount = new Array(3);
+  }
+
+  hideSkeleton() {
+    this.skeletonCount = [];
+  }
+
   getCharactersData(pageIndex: number) {
-    this.loading.present();
+    this.showSkeleton();
     this.characterSvc.getCharactersList(pageIndex).subscribe(response => {
       const { info, results } = response.data.characters;
       this.totalPages = info.pages;
       this.nextIndex = info.next;
       this.previousIndex = info.prev;
-      this.loading.dismiss();
+      this.hideSkeleton();
       this.characters = results;
     });
   }
