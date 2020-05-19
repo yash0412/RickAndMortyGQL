@@ -38,7 +38,6 @@ export class CharactersPage implements OnInit {
 
   getCharactersData(pageIndex: number) {
     this.showSkeleton();
-    this.characters = [];
     this.characterSvc.getCharactersList(pageIndex).subscribe(response => {
       const { info, results } = response.data.characters;
       this.currentIndex = pageIndex;
