@@ -50,7 +50,7 @@ export class CharactersPage implements OnInit {
         this.hideSkeleton();
         this.characters = results;
       },
-      err => {
+      () => {
         this.hideSkeleton();
       }
     );

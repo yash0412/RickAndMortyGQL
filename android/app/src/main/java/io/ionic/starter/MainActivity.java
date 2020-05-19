@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.yash.rickNmorty;
 
 import android.os.Bundle;
 

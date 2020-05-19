@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "rickAndMortyGQL",
+  "appId": "com.yash.rickNmorty",
+  "appName": "Rick and Morty Guide",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
