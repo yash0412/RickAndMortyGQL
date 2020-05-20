@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CharacterService } from "./character.service";
+import { ToastService } from "../toast.service";
 
 @Component({
   selector: "app-characters",
@@ -22,7 +23,10 @@ export class CharactersPage implements OnInit {
   };
 
   characters: any[] = [];
-  constructor(private characterSvc: CharacterService) {}
+  constructor(
+    private characterSvc: CharacterService,
+    private toastSvc: ToastService
+  ) {}
 
   ngOnInit() {
     this.getCharactersData(this.currentIndex);
@@ -51,6 +55,8 @@ export class CharactersPage implements OnInit {
         this.characters = results;
       },
       () => {
+        this.characters = [];
+        this.toastSvc.presentToast("Network Error!");
         this.hideSkeleton();
       }
     );
